@@ -16,8 +16,10 @@ const auth = async (req, res, next) => {
             decodedData = jwt.decode(token);
             req.userId = decodedData?.sub;
         }
+        if(!req.userId) return res.status(400).json({ message: "No user found."});
 
         next();
+
     } catch (error) {
         console.log(error);
     }
